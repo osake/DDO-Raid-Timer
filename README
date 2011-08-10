@@ -1,0 +1,6 @@
+The DDO Raid Timer application is a simple android application that will help you keep track of your character's raid timers.  The problem this solves is that you don't necessarily have an easy way to check your timers w/o logging into the game.  On the downside, this application will require the user to start timers based on when they complete and turn in the raid's quest for completion status and end reward.  Hopefully, DDO will offer an API or some means of pulling this data in the future that will help me eliminate the manual steps from this application.
+
+This is project will be available in the Android Market once I get happy with the version.
+
+Feel free to download, build, install, etc.  I'm not including instructions here since that sort of thing should all be available via http://developer.android.com
+

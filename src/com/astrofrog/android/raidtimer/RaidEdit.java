@@ -1,9 +1,11 @@
 package com.astrofrog.android.raidtimer;
 
 import java.util.Calendar;
+
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
@@ -11,7 +13,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.util.Log;
+import android.widget.TimePicker;
 
 public class RaidEdit extends Activity {
     private EditText mNameText;
@@ -24,8 +26,10 @@ public class RaidEdit extends Activity {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private int mHour;
+    private int mMinute;
  
-//    static final int TIME_DIALOG_ID = 0;
+    static final int TIME_DIALOG_ID = 0;
     static final int DATE_DIALOG_ID = 1;
 
     @Override
@@ -40,10 +44,17 @@ public class RaidEdit extends Activity {
         mNameText = (EditText) findViewById(R.id.name);
         mStartDateText = (TextView) findViewById(R.id.start_date);
 
-        Button pickDate = (Button) findViewById(R.id.pickDate);
-        pickDate.setOnClickListener(new View.OnClickListener() {
+        Button setDate = (Button) findViewById(R.id.setDate);
+        setDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 showDialog(DATE_DIALOG_ID);
+            }
+        });
+
+        Button setTime = (Button) findViewById(R.id.setTime);
+        setTime.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDialog(TIME_DIALOG_ID);
             }
         });
 
@@ -51,6 +62,8 @@ public class RaidEdit extends Activity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
 
         Button confirmButton = (Button) findViewById(R.id.confirm_raid);
 
@@ -133,8 +146,10 @@ public class RaidEdit extends Activity {
         switch (id) {
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this,
-                            mDateSetListener,
-                            mYear, mMonth, mDay);
+                        mDateSetListener, mYear, mMonth, mDay);
+            case TIME_DIALOG_ID:
+            	return new TimePickerDialog(this,
+            			mTimeSetListener, mHour, mMinute, false);
         }
         return null;
     }
@@ -145,6 +160,9 @@ public class RaidEdit extends Activity {
             case DATE_DIALOG_ID:
                 ((DatePickerDialog) dialog).updateDate(mYear, mMonth, mDay);
                 break;
+            case TIME_DIALOG_ID:
+            	((TimePickerDialog) dialog).updateTime(mHour, mMinute);
+            	break;
         }
     }
 
@@ -154,7 +172,9 @@ public class RaidEdit extends Activity {
                         // Month is 0 based so add 1
                         .append(mMonth + 1).append("-")
                         .append(mDay).append("-")
-                        .append(mYear));
+                        .append(mYear).append(" ")
+                        .append(pad(mHour)).append(":")
+                		.append(pad(mMinute)));
     }
 
     private DatePickerDialog.OnDateSetListener mDateSetListener =
@@ -168,11 +188,22 @@ public class RaidEdit extends Activity {
                 updateDisplay();
             }
         };
-    
-//    private static String pad(int c) {
-//        if (c >= 10)
-//            return String.valueOf(c);
-//        else
-//            return "0" + String.valueOf(c);
-//    }
+        
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+    	new TimePickerDialog.OnTimeSetListener() {
+			
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				mHour = hourOfDay;
+				mMinute = minute;
+				updateDisplay();
+			}
+		};
+    	
+
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
+    }
 }

@@ -8,16 +8,19 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.ToggleButton;
 
 public class RaidEdit extends Activity {
     private EditText mNameText;
     private TextView mStartDateText;
+    private ToggleButton mFlagged;
     private Long mRowId;
     private Long mToonId;
     private RaidsDbAdapter mDbHelper;
@@ -43,6 +46,7 @@ public class RaidEdit extends Activity {
 
         mNameText = (EditText) findViewById(R.id.name);
         mStartDateText = (TextView) findViewById(R.id.start_date);
+        mFlagged = (ToggleButton) findViewById(R.id.flaggedToggle);
 
         Button setDate = (Button) findViewById(R.id.setDate);
         setDate.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +111,11 @@ public class RaidEdit extends Activity {
             }
             mStartDateText.setText(raid.getString(
             		raid.getColumnIndexOrThrow(RaidsDbAdapter.KEY_START_DATE)));
+            if(raid.getInt(raid.getColumnIndex(RaidsDbAdapter.KEY_FLAGGED)) == 1) {
+            	mFlagged.setChecked(true);
+            } else {
+            	mFlagged.setChecked(false);
+            }
         }
     }
 
@@ -141,6 +150,7 @@ public class RaidEdit extends Activity {
     private void saveState() {
         String name = mNameText.getText().toString();
         String start_date = mStartDateText.getText().toString();
+        String flagged = mFlagged.getText().toString();
         Long toon_id = mToonId;
 
         if (mRowId == null) {
@@ -149,7 +159,7 @@ public class RaidEdit extends Activity {
                 mRowId = id;
             }
         } else {
-            mDbHelper.updateRaid(mRowId, name, start_date);
+            mDbHelper.updateRaid(mRowId, name, start_date, (flagged.matches("YES") ? 1 : 0));
         }
     }
 

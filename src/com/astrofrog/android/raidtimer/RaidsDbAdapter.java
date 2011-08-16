@@ -12,6 +12,7 @@ public class RaidsDbAdapter {
     public static final String KEY_NAME = "name";
     public static final String KEY_START_DATE = "start_date";
     public static final String KEY_TOON_ID = "toon_id";
+    public static final String KEY_FLAGGED = "flagged";
     public static final String KEY_ROWID = "_id";
     
     private static final String TAG = "RaidsDbAdapter";
@@ -20,12 +21,13 @@ public class RaidsDbAdapter {
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_RAIDS_TABLE = "raids";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_CREATE_RAIDS_TABLE =
         "create table " + DATABASE_RAIDS_TABLE 
     	+ " (_id integer primary key autoincrement, "
-        + "name text not null, toon_id integer, start_date text not null);";
+        + "name text not null, toon_id integer, start_date text not null, "
+        + "flagged tinyint not null default 0);";
 
     private final Context mCtx;
 
@@ -38,7 +40,7 @@ public class RaidsDbAdapter {
         @Override
         public void onCreate(SQLiteDatabase db) {
         	Log.w("DB", DATABASE_CREATE_RAIDS_TABLE);
-            db.execSQL(DATABASE_CREATE_RAIDS_TABLE);
+//            db.execSQL(DATABASE_CREATE_RAIDS_TABLE);
         }
 
         @Override
@@ -68,6 +70,7 @@ public class RaidsDbAdapter {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NAME, name);
         initialValues.put(KEY_START_DATE, start_date);
+        initialValues.put(KEY_FLAGGED, 0);
         initialValues.put(KEY_TOON_ID, toon_id);
 
         return mDb.insert(DATABASE_RAIDS_TABLE, null, initialValues);
@@ -78,14 +81,14 @@ public class RaidsDbAdapter {
     }
 
     public Cursor fetchAllRaids() {
-        return mDb.query(DATABASE_RAIDS_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_START_DATE}, 
+        return mDb.query(DATABASE_RAIDS_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_START_DATE, KEY_FLAGGED}, 
                 null, null, null, null, null);
     }
     
     public Cursor fetchToonsRaids(long toonId) throws SQLException {
         Cursor mCursor =
             mDb.query(true, DATABASE_RAIDS_TABLE, new String[] {KEY_ROWID,
-                    KEY_NAME, KEY_START_DATE}, 
+                    KEY_NAME, KEY_START_DATE, KEY_FLAGGED}, 
                     KEY_TOON_ID + "=" + toonId, null,
                     null, null, null, null);
         if (mCursor != null) {
@@ -97,7 +100,7 @@ public class RaidsDbAdapter {
     public Cursor fetchRaid(long rowId) throws SQLException {
         Cursor mCursor =
             mDb.query(true, DATABASE_RAIDS_TABLE, new String[] {KEY_ROWID,
-                    KEY_NAME, KEY_START_DATE}, 
+                    KEY_NAME, KEY_START_DATE, KEY_FLAGGED}, 
                     KEY_ROWID + "=" + rowId, null,
                     null, null, null, null);
         if (mCursor != null) {
@@ -106,10 +109,11 @@ public class RaidsDbAdapter {
         return mCursor;
     }
 
-    public boolean updateRaid(long rowId, String name, String start_date) {
+    public boolean updateRaid(long rowId, String name, String start_date, int flagged) {
         ContentValues args = new ContentValues();
         args.put(KEY_NAME, name);
         args.put(KEY_START_DATE, start_date);
+        args.put(KEY_FLAGGED, flagged);
 
         return mDb.update(DATABASE_RAIDS_TABLE, args, KEY_ROWID + "=" + rowId, null) > 0;
     }

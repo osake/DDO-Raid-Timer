@@ -14,4 +14,5 @@
     <string name="raid_start_date">Start Date</string>
     <string name="toon">Toon</string>
     <string name="complete">Complete</string>
+    <string name="flagged">Flagged?</string>
 </resources>

@@ -17,7 +17,7 @@ public class ToonsDbAdapter {
     private SQLiteDatabase mDb;
 
     private static final String DATABASE_NAME = "data";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String DATABASE_TOONS_TABLE = "toons";
     private static final String DATABASE_CREATE_TOONS_TABLE =
@@ -29,7 +29,8 @@ public class ToonsDbAdapter {
     private static final String DATABASE_CREATE_RAIDS_TABLE =
         "create table " + DATABASE_RAIDS_TABLE 
     	+ " (_id integer primary key autoincrement, "
-        + "name text not null, toon_id integer, start_date text not null);";
+        + "name text not null, toon_id integer, start_date text not null, "
+        + "flagged tinyint not null default 0);";
 
     private final Context mCtx;
 

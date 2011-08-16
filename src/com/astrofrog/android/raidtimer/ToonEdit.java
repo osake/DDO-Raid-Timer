@@ -31,7 +31,6 @@ public class ToonEdit extends ListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.w("CREATE_TOON","IN DA HOUSE");
         mToonsDbHelper = new ToonsDbAdapter(this);
         mToonsDbHelper.open();
 
@@ -55,6 +54,7 @@ public class ToonEdit extends ListActivity {
 
 		populateFields();
 		fillRaidData();
+		registerForContextMenu(getListView());
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

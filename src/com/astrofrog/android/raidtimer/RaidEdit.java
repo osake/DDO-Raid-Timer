@@ -58,14 +58,10 @@ public class RaidEdit extends Activity {
             }
         });
 
-        final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
-        mHour = c.get(Calendar.HOUR_OF_DAY);
-        mMinute = c.get(Calendar.MINUTE);
+        calendarSetup();
 
         Button confirmButton = (Button) findViewById(R.id.confirm_raid);
+        Button completeButton = (Button) findViewById(R.id.setComplete);
 
         mRowId = (savedInstanceState == null) ? null :
             (Long) savedInstanceState.getSerializable(RaidsDbAdapter.KEY_ROWID);
@@ -91,6 +87,13 @@ public class RaidEdit extends Activity {
                 finish();
             }
         });
+        
+        completeButton.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View view) {
+        		calendarSetup();
+        		updateDisplay();
+        	}
+        });
     }
 
     private void populateFields() {
@@ -105,6 +108,15 @@ public class RaidEdit extends Activity {
             mStartDateText.setText(raid.getString(
             		raid.getColumnIndexOrThrow(RaidsDbAdapter.KEY_START_DATE)));
         }
+    }
+
+    private void calendarSetup() {
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
     }
 
     @Override
@@ -198,7 +210,6 @@ public class RaidEdit extends Activity {
 				updateDisplay();
 			}
 		};
-    	
 
     private static String pad(int c) {
         if (c >= 10)

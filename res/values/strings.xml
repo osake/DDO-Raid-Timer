@@ -13,4 +13,5 @@
     <string name="raid_name">Raid Name</string>
     <string name="raid_start_date">Start Date</string>
     <string name="toon">Toon</string>
+    <string name="complete">Complete</string>
 </resources>

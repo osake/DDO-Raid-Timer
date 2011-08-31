@@ -80,6 +80,10 @@ public class RaidsDbAdapter {
         return mDb.delete(DATABASE_RAIDS_TABLE, KEY_ROWID + "=" + rowId, null) > 0;
     }
 
+    public boolean deleteToonsRaid(long toonId) {
+        return mDb.delete(DATABASE_RAIDS_TABLE, KEY_TOON_ID + "=" + toonId, null) > 0;
+    }
+
     public Cursor fetchAllRaids() {
         return mDb.query(DATABASE_RAIDS_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_START_DATE, KEY_FLAGGED}, 
                 null, null, null, null, null);

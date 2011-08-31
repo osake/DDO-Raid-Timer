@@ -78,6 +78,10 @@ public class ToonsDbAdapter {
 
     public boolean deleteToon(long rowId) {
     	// TODO: Open a toons adapter and delete rows with the toon id
+    	RaidsDbAdapter mRaidsDbHelper = new RaidsDbAdapter(mCtx);
+        mRaidsDbHelper.open();
+        mRaidsDbHelper.deleteToonsRaid(rowId);
+        mRaidsDbHelper.close();
         return mDb.delete(DATABASE_TOONS_TABLE, KEY_TOON_ROWID + "=" + rowId, null) > 0;
     }
 

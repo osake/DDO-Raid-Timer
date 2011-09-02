@@ -8,27 +8,25 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
-        <TextView android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="@string/raid_name" />
-        <EditText android:id="@+id/name" 
-          android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_weight="1"/>
-    </LinearLayout>
-    <Button android:id="@+id/confirm_raid" android:text="@string/confirm" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-    <TextView android:id="@+id/start_date" android:text="@string/raid_start_date" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/raid_name" />
+        <EditText android:id="@+id/name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_weight="1" />
+        <Button android:id="@+id/confirm_raid" android:text="@string/confirm" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+     </LinearLayout>
+ 
+    <TextView android:id="@+id/start_date" android:text="@string/raid_start_date" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+ 
     <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/linearLayout1">
-        <Button android:id="@+id/setDate" android:text="Set Date" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
-        <Button android:id="@+id/setTime" android:text="Set Time" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+        <Button android:id="@+id/setDate" android:text="Set Date" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <Button android:id="@+id/setTime" android:text="Set Time" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <Button android:id="@+id/setComplete" android:layout_height="wrap_content" android:layout_width="wrap_content" android:text="Complete Raid Now" />
     </LinearLayout>
-    <TextView android:text="@string/flagged" android:id="@+id/flagged" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+ 
+    <TextView android:text="@string/flagged" android:id="@+id/flagged" android:layout_width="wrap_content" android:layout_height="wrap_content" />
     <ToggleButton android:text="FlaggedToggleButton" android:id="@+id/flaggedToggle" android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:textOn="YES" android:textOff="NO" />
 
-    <Button android:id="@+id/setComplete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Complete Raid Now"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/raidTime">
+        <TextView android:text="@string/timeLeft" android:id="@+id/timeLeft" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

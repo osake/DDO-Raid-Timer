@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/Users/jfrench/DDO-Raid-Timer/app/src/main/res/values/strings.xml -->
+    <eat-comment/>
+    <string name="app_name">DDO Raid Timer</string>
+    <string name="complete">Complete</string>
+    <string name="confirm">Confirm</string>
+    <string name="edit_raid">Edit Raid</string>
+    <string name="edit_toon">Edit Toon</string>
+    <string name="flagged">Flagged?</string>
+    <string name="menu_raid_delete">Delete Raid</string>
+    <string name="menu_raid_insert">Add Raid</string>
+    <string name="menu_toon_delete">Delete Toon</string>
+    <string name="menu_toon_insert">Add Toon</string>
+    <string name="no_raids">No Raids Have Been Added Yet</string>
+    <string name="no_toons">No Toons Have Been Added Yet</string>
+    <string name="raid_name">Raid Name</string>
+    <string name="raid_start_date">Start Date</string>
+    <string name="timeLeft">Time Remaining</string>
+    <string name="toon">Toon</string>
+</resources>

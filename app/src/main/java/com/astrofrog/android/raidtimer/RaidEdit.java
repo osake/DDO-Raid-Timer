@@ -130,6 +130,9 @@ public class RaidEdit extends Activity {
 
     // TODO there is still some wonkiness on when this method updates the field, not really sure why it sometimes takes double clicks to work
     private void calculateRemainingTime() {
+        final long WAIT_TIME_SECONDS = 237600; // 2 days 18 hours
+        final long DAY_SECONDS = 86400;
+        final long HOUR_SECONDS = 3600;
         Calendar now = Calendar.getInstance();
         Calendar lastRan = Calendar.getInstance();
         long days, hours, minutes;
@@ -139,19 +142,20 @@ public class RaidEdit extends Activity {
         long nowWithoutMillis = now.getTime().getTime() / 1000;
         long lastRanWithoutMillis = lastRan.getTime().getTime() / 1000;
 
-        long nextRun = lastRanWithoutMillis + (86400*2 + 3600*18); // add 2 days and 18 hours since that is "wait time"
+        long nextRun = lastRanWithoutMillis + WAIT_TIME_SECONDS;
         long remainingTimeInSeconds = nextRun - nowWithoutMillis;
         if(remainingTimeInSeconds < 0) {
             mTimeLeftText.setText("Ready to repeat!");
         } else {
             /* days hours minutes breakout */
-            days = remainingTimeInSeconds / 86400;
-            remainingTimeInSeconds %= 86400;
-            hours = remainingTimeInSeconds / 3600;
-            remainingTimeInSeconds %= 3600;
+            days = remainingTimeInSeconds / DAY_SECONDS;
+            remainingTimeInSeconds %= DAY_SECONDS;
+            hours = remainingTimeInSeconds / HOUR_SECONDS;
+            remainingTimeInSeconds %= HOUR_SECONDS;
             minutes = remainingTimeInSeconds / 60;
 
-            mTimeLeftText.setText("You can replay this raid in " + Long.toString(days) + " days, " + Long.toString(hours) + "hours, " + Long.toString(minutes) + "minutes.");
+            mTimeLeftText.setText("You can replay this raid in " + Long.toString(days) + " days, "
+                    + Long.toString(hours) + "hours, " + Long.toString(minutes) + "minutes.");
         }
     }
 
